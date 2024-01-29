@@ -66,7 +66,7 @@ menu "My Configuration"
         
     config BROKER_URL
         string "Broker URL"
-        default "mqtt://mqtt.eclipseprojects.io"
+        default "mqtts://test.mosquitto.org:8884"
         help
             URL of the broker to connect to
         

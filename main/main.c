@@ -226,7 +226,12 @@ static void InitMQTT(void)
     const esp_mqtt_client_config_t mqtt_cfg = {
         .broker = {
             .address.uri = CONFIG_BROKER_URL,
-            //.verification.certificate = (const char *)mqtt_eclipseprojects_io_pem_start
+		    .broker.verification.certificate = (const char *)server_cert_pem_start,
+		    .credentials = {
+		      .authentication = {
+		        .certificate = (const char *)client_cert_pem_start,
+		        .key = (const char *)client_key_pem_start,
+		      },
         },
     };
 

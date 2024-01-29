@@ -1,0 +1,13 @@
+Generate client certificate for mqtts:
+	openssl genrsa -out client.key
+	openssl req -out client.csr -key client.key -new
+		Insert data
+		Go to website https://test.mosquitto.org/ssl/index.php and copy the content of file client.csr in there
+		Save downloaded file in the same folder
+Get server certificate from page https://test.mosquitto.org/ssl/mosquitto.org.crt and save it to folder keys
+
+
+At the end you should have three files:
+	- client.crt
+	- client.key
+	- mosquitto.org.crt

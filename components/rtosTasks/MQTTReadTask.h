@@ -6,6 +6,10 @@
 #include "freertos/task.h"
 
 extern TaskHandle_t sensorMQTTTaskHandle;
+
+/*
+ *  method for creating task that responds to MQTT request
+ */
 int CreateMQTTReadTask(void);
 
 

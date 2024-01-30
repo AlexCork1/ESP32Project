@@ -6,6 +6,9 @@
 
 extern TaskHandle_t firmwareUpdateTaskHandle;
 
+/*
+ *  method for creating task that overwrite firmware
+ */
 int CreateUpdateFirmwareTask(void);
 
 

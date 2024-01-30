@@ -9,7 +9,11 @@
 TaskHandle_t sensorUpdateTaskHandle;
 #define READ_TEMPERATURE_SENSOR_FREQUENCY_MS 5000
 
-//this task can be joined with Task_PeriodicRead
+/*
+ * Task that initializes and does actual reading from sensor
+ * This task (could/can) be joined with Task_PeriodicRead to make application smaller
+ */
+
 void Task_GetTemperatureAndHumidity(void* params)
 {
 	TickType_t xLastWakeTime;
@@ -21,11 +25,19 @@ void Task_GetTemperatureAndHumidity(void* params)
 	while(1)
 	{
 		ESP_LOGI("Task_GetTemperatureAndHumidity", "Task_GetTemperatureAndHumidity\n");
+		//get latest data from sensor
 		Sensor_UpdateData();
+		//wait for tmie interval
         vTaskDelayUntil(&xLastWakeTime, freq);
 	}
 }
 
+/*
+ *  method for creating periodic read task
+ *  Out:
+ *  0 - everything is ok
+ *  1 - task creation has failed
+ */
 int CreateReadSensorTask(void){
 	BaseType_t response;
 	response = xTaskCreatePinnedToCore(
@@ -37,10 +49,10 @@ int CreateReadSensorTask(void){
 			&sensorUpdateTaskHandle, //task handle
 			1); //task core
 
-	if (response != pdPASS){
-		//TODO somethins is wrong - we should tell someone something
+	if (response != pdPASS)
+	{
 		ESP_LOGE("InitFreeRTOSStructs", "Error : Task_GetTemperatureAndHumidity");
-		while(1);//quick fix
+		return -1;
 	}
 
 	return 0;

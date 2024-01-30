@@ -10,6 +10,10 @@
 
 #include <stdint.h>
 
+/*
+ * struct used to represent data from sensor
+ */
+
 typedef struct{
     int32_t temperature;
     int32_t humidity;

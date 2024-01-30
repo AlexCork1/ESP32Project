@@ -1,3 +1,6 @@
+/*
+ * Definition of all extern variables used by all tasks
+ */
 #include "CommonVariablesAllTasks.h"
 
 SemaphoreHandle_t message_received_sem;

@@ -5,6 +5,10 @@
 #include "freertos/task.h"
 
 extern TaskHandle_t sensorPeriodicTaskHandle;
+
+/*
+ *  method for creating task that periodically gets data from sensor
+ */
 int CreatePeriodicTask(void);
 
 

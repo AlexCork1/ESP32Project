@@ -9,11 +9,26 @@
 #include "MQTTReadTask.h"
 #include "MQTTPublishTask.h"
 
+/*
+ * how many messages can be stored in queue. This can be changed if there is too many request at the same time
+ */
+const int QUEUE_SIZE = 5;
+
 void InitFreeRTOSStructs(void)
 {
-	jsonQueue = xQueueCreate(5, sizeof(MQTT_MESSAGE));
+	/*
+	 * queue for sending data between all read tasks and publish tasks
+	 */
+	jsonQueue = xQueueCreate(QUEUE_SIZE, sizeof(MQTT_MESSAGE));
+
+	/*
+	 * creating binary semaphore used for signaling
+	 */
 	message_received_sem = xSemaphoreCreateBinary();
 
+	/*
+	 * create all tasks (methods are implemented in tasks files)
+	 */
 	CreateUpdateFirmwareTask();
 	CreateReadSensorTask();
 	CreatePeriodicTask();

@@ -11,7 +11,8 @@
 #include "SensorData.h"
 
 /*
- *
+ * Component for reading data from temperature sensor
+ * It's made separately of tasks so it can be reused
  */
 
 void Sensor_Init(uint32_t randomSeed);

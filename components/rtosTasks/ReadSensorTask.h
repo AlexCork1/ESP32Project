@@ -6,6 +6,10 @@
 #include "freertos/task.h"
 
 extern TaskHandle_t sensorUpdateTaskHandle;
+
+/*
+ *  method for creating task that actuall read from sensor
+ */
 int CreateReadSensorTask(void);
 
 

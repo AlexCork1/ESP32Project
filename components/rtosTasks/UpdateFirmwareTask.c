@@ -7,6 +7,10 @@
 
 TaskHandle_t firmwareUpdateTaskHandle;
 
+/*
+ * Task that will update firmware on request
+ *
+ */
 void Task_MQTTRead_UpdateFirmware(void *params)
 {
 	//register to mqtt message
@@ -20,6 +24,13 @@ void Task_MQTTRead_UpdateFirmware(void *params)
 	}
 }
 
+
+/*
+ *  method for creating task for updating firmware
+ *  Out:
+ *  0 - everything is ok
+ *  1 - task creation has failed
+ */
 int CreateUpdateFirmwareTask(void)
 {
 	BaseType_t response;

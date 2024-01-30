@@ -6,6 +6,9 @@
 
 extern TaskHandle_t mqttPublishTaskHandle;
 
+/*
+ *  method for creating publish task
+ */
 int CreateMQTTPublishTask(void);
 
 #endif /* MAIN_RTOSTASKS_MQTTPUBLISHTASK_H_ */

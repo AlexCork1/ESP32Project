@@ -15,11 +15,19 @@ TaskHandle_t sensorButtonTaskHandle;
 
 #define GPIO_PIN_BUTTON GPIO_NUM_25
 
+/*
+ * Task that will read button state and if press is detected send
+ * newest data from sensor to MQTT broker
+ *
+ * It uses polling mechanism (not ISR)
+ *
+ */
 void Task_ReadUserButton(void* params)
 {
 	const uint32_t frequency_timer_ms = 50 / portTICK_PERIOD_MS;
 	const uint32_t debounce_timer_ms = 200 / portTICK_PERIOD_MS;
 
+	//configure pin to which button is connected
 	gpio_config_t button_config = {
 	        .pin_bit_mask = (1ULL<<GPIO_PIN_BUTTON),
 	        .mode = GPIO_MODE_INPUT,
@@ -36,12 +44,16 @@ void Task_ReadUserButton(void* params)
 
 	while(1)
 	{
+		//read button (if low, button is pressed)
 		int level = gpio_get_level(GPIO_PIN_BUTTON);
+		//check if user is holding button for longer time - data is send only once
 		if (level == 0 && previousLevel == 1)
 		{
+			//get data from sensor
 			Sensor_GetData(&data);
     		ESP_LOGI("Task_ReadUserButton", "Button click : message send to queue");
 
+    		//convert it to json
 			GeneratePublishMessage(&message, BUTTON_PRESS, &data);
 
 			//debounce timer
@@ -51,7 +63,7 @@ void Task_ReadUserButton(void* params)
 
         if (newMessageArrived == 1)
         {
-    		//try to send message to queue
+    		//try to send message to publish task over queue
     		if(xQueueSend(jsonQueue, &message, 0) == pdTRUE)
     			newMessageArrived = 0;
         }
@@ -61,6 +73,12 @@ void Task_ReadUserButton(void* params)
 	}
 }
 
+/*
+ *  method for creating read button task
+ *  Out:
+ *  0 - everything is ok
+ *  1 - task creation has failed
+ */
 int CreateReadUserButtonTask(void)
 {
 	BaseType_t response;
@@ -75,7 +93,7 @@ int CreateReadUserButtonTask(void)
 
 	if (response != pdPASS){
 		ESP_LOGE("InitFreeRTOSStructs", "Error : Task_ReadUserButton");
-		while(1);//quick fix
+		return -1;
 	}
 	return 0;
 }

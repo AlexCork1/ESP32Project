@@ -7,6 +7,10 @@
 
 TaskHandle_t mqttPublishTaskHandle;
 
+/*
+ * Task used for publishing data to MQTT broker. This happens only here and nowhere else
+ * Content for publishing is send from tasks using queue
+ */
 void Task_MQTT_Publish(void* params)
 {
 	MQTT_MESSAGE message;
@@ -30,6 +34,13 @@ void Task_MQTT_Publish(void* params)
 	}
 }
 
+
+/*
+ *  method for creating publish task
+ *  Out:
+ *  0 - everything is ok
+ *  1 - task creation has failed
+ */
 int CreateMQTTPublishTask(void)
 {
 	BaseType_t response;
@@ -43,9 +54,8 @@ int CreateMQTTPublishTask(void)
 			1); //task core
 
 	if (response != pdPASS){
-		//TODO somethins is wrong - we should tell someone something
 		ESP_LOGE("InitFreeRTOSStructs", "Error : Task_MQTT_Publish");
-		while(1);//quick fix
+		return -1; //should we handle it any other way?
 	}
 
 	return 0;

@@ -6,6 +6,7 @@
 
 /*
  * Code where all reading from temperature sensor is done
+ * Basic idea is, that only one task reads from sensor and stores is locally, while other always get the latest copy of data
  */
 
 /*

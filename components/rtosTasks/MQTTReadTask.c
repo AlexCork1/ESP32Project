@@ -10,6 +10,11 @@
 
 TaskHandle_t sensorMQTTTaskHandle;
 
+/*
+ * Task used for handling MQTT request. Semaphore is used for synchronization between task and MQTT handler
+ * First is reads data from sensor and converts it to MQTT_Message
+ * Sends the data to publish task over queu
+ */
 void Task_MQTTRead_Command(void *params)
 {
 	const uint32_t wait_for_sem_ms = 10 / portTICK_PERIOD_MS;
@@ -23,8 +28,11 @@ void Task_MQTTRead_Command(void *params)
 	while(1)
 	{
 		// Wait for the semaphore signal indicating a message was received
-        if (xSemaphoreTake(message_received_sem, wait_for_sem_ms) == pdTRUE) {
+        if (xSemaphoreTake(message_received_sem, wait_for_sem_ms) == pdTRUE)
+        {
+        	//get data from sensor
     		Sensor_GetData(&data);
+    		//generate json format message
     		GeneratePublishMessage(&message,CLOUD_REQUEST, &data);
     		newMessageArrived = 1;
     		ESP_LOGI("Task_MQTTRead_Command", "Message received from MQTT");
@@ -32,7 +40,7 @@ void Task_MQTTRead_Command(void *params)
 
         if (newMessageArrived == 1)
         {
-    		//try to send message to queue
+    		//try to send message over queue to publish task
     		if(xQueueSend(jsonQueue, &message, 0) == pdTRUE)
     			newMessageArrived = 0;
         }
@@ -40,6 +48,12 @@ void Task_MQTTRead_Command(void *params)
 	}
 }
 
+/*
+ *  method for creating task that responds to MQTT request
+ *  Out:
+ *  0 - everything is ok
+ *  1 - task creation has failed
+ */
 int CreateMQTTReadTask(void)
 {
 	int response;
@@ -52,10 +66,10 @@ int CreateMQTTReadTask(void)
 				&sensorMQTTTaskHandle, //task handle
 				1); //task core
 
-	if (response != pdPASS){
-		//TODO somethins is wrong - we should tell someone something
+	if (response != pdPASS)
+	{
 		ESP_LOGE("InitFreeRTOSStructs", "Error : Task_MQTTRead_Command");
-		while(1);//quick fix
+		return -1; //should we handle it any other way?
 	}
 	return 0;
 }

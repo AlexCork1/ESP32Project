@@ -9,6 +9,9 @@
 #define MAIN_MYTASKS_H_
 
 
+/*
+ * Method called from main program that creates all tasks, queues and semaphores
+ */
 void InitFreeRTOSStructs(void);
 
 

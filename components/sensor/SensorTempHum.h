@@ -14,7 +14,7 @@
  *
  */
 
-void Sensor_Init();
+void Sensor_Init(uint32_t randomSeed);
 void Sensor_UpdateData();
 void Sensor_GetData(SensorData *data);
 

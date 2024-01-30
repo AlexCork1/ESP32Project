@@ -15,7 +15,7 @@ void Task_GetTemperatureAndHumidity(void* params)
 	TickType_t xLastWakeTime;
 	const uint32_t freq = READ_TEMPERATURE_SENSOR_FREQUENCY_MS / portTICK_PERIOD_MS;
 
-	Sensor_Init();
+	Sensor_Init(5);
 
 	xLastWakeTime = xTaskGetTickCount();
 	while(1)

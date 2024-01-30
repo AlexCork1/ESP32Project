@@ -5,6 +5,10 @@ cmake_minimum_required(VERSION 3.5)
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 project(app-template)
 
-target_add_binary_data(${CMAKE_PROJECT_NAME}.elf "main/keys/client.crt" TEXT)
-target_add_binary_data(${CMAKE_PROJECT_NAME}.elf "main/keys/client.key" TEXT)
-target_add_binary_data(${CMAKE_PROJECT_NAME}.elf "main/keys/mosquitto.org.crt" TEXT)
+target_add_binary_data(${CMAKE_PROJECT_NAME}.elf "main/certs/client.crt" TEXT)
+target_add_binary_data(${CMAKE_PROJECT_NAME}.elf "main/certs/client.key" TEXT)
+target_add_binary_data(${CMAKE_PROJECT_NAME}.elf "main/certs/mosquitto.org.crt" TEXT)
+
+#idf_component_register(SRCS "main/main.c"
+                       #INCLUDE_DIRS "main"
+                       #REQUIRES rtosTasks sensor wifimqtt)

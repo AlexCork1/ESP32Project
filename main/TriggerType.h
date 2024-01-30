@@ -5,8 +5,8 @@
  *      Author: Ales
  */
 
-#ifndef MAIN_EVENTSOURCE_H_
-#define MAIN_EVENTSOURCE_H_
+#ifndef MAIN_TRIGGERTYPE_H_
+#define MAIN_TRIGGERTYPE_H_
 
 typedef enum{
     PERIODIC_TIMER = 0,
@@ -16,4 +16,4 @@ typedef enum{
 
 
 
-#endif /* MAIN_EVENTSOURCE_H_ */
+#endif /* MAIN_TRIGGERTYPE_H_ */

@@ -11,6 +11,32 @@ menu "My Configuration"
         default "blablabla"
         help
             WiFi password (WPA or WPA2) for the example to use.
+    
+          
+    config BROKER_URL
+        string "Broker URL"
+        default "mqtts://test.mosquitto.org:8884"
+        help
+            URL of the broker to connect to
+        
+                
+    config MQTT_READ_TOPIC
+        string "MQTT topic request"
+        default "/assignment/sensor/get"
+        help
+            MQTT topic where user needs to send message
+                    
+    config MQTT_READ_MSG
+        string "MQTT message request"
+        default "READ"
+        help
+            MQTT data that must be send to ESP32
+            
+    config MQTT_PUBLISH_TOPIC
+        string "MQTT topic publish"
+        default "/assignment/sensor/publish"
+        help
+            MQTT topic where ESP32 will publish it's data
 
     choice ESP_WIFI_SAE_MODE
         prompt "WPA3 SAE mode selection"
@@ -63,23 +89,5 @@ menu "My Configuration"
         config ESP_WIFI_AUTH_WAPI_PSK
             bool "WAPI PSK"
     endchoice
-        
-    config BROKER_URL
-        string "Broker URL"
-        default "mqtts://test.mosquitto.org:8884"
-        help
-            URL of the broker to connect to
-        
-                
-    config MQTT_READ_TOPIC
-        string "MQTT topic request"
-        default "/assignment/sensor/get"
-        help
-            MQTT topic where user needs to send message
-            
-    config MQTT_READ_MSG
-        string "MQTT message request"
-        default "READ"
-        help
-            MQTT data that must be send to ESP32
+  
 endmenu

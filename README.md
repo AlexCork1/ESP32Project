@@ -12,10 +12,9 @@ MQTT topic publish is a topic used by another task for publishing data to MQTT b
 ## Create certificate for secure connection to MQTT broker
 Generate client certificate for mqtts:
 - openssl genrsa -out client.key
-- openssl req -out client.csr -key client.key -new
--- Insert data
--- Go to website https://test.mosquitto.org/ssl/index.php and copy the content of file client.csr in there
--- Save downloaded file in the same folder
-- Get server certificate from page https://test.mosquitto.org/ssl/mosquitto.org.crt and save it to folder keys
+- openssl req -out client.csr -key client.key -new<br >
+- Go to website https://test.mosquitto.org/ssl/index.php and copy the content of file client.csr in there(save downloaded file in the same folder)<br />
 
-Copy files client.crt, client.key and mosquitto.org.crt to folder /main/cert
+Get server certificate from page https://test.mosquitto.org/ssl/mosquitto.org.crt and save it to folder keys<br />
+
+Copy files client.crt, client.key and mosquitto.org.crt to folder /main/cert<br />

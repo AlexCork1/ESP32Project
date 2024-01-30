@@ -1,12 +1,10 @@
-/*
- * EventSource.h
- *
- *  Created on: 28 Jan 2024
- *      Author: Ales
- */
-
 #ifndef MAIN_TRIGGERTYPE_H_
 #define MAIN_TRIGGERTYPE_H_
+
+
+/*
+ * In tasks program can have different triggers for reading data from temperature sensor.
+ */
 
 typedef enum{
     PERIODIC_TIMER = 0,

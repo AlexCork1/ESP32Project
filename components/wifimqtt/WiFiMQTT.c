@@ -1,25 +1,29 @@
+//private includes
 #include "WiFiMQTT.h"
-
 #include "CommonVariablesAllTasks.h"
-
+#include "mqtt_client.h"
+//freertos includes
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/event_groups.h"
-
+//esp32 components include
 #include "esp_system.h"
 #include "esp_wifi.h"
 #include "esp_event.h"
 #include "esp_log.h"
 #include "nvs.h"
 #include "nvs_flash.h"
-
 #include "lwip/err.h"
 #include "lwip/sys.h"
-
-#include "mqtt_client.h"
 #include "esp_event_base.h"
 
-
+/*
+ * This source is mostly copied from ESP32 examples
+ *
+ * WiFi code: https://github.com/espressif/esp-idf/tree/master/examples/wifi/getting_started/station
+ * MQTT code: https://github.com/espressif/esp-idf/tree/master/examples/protocols/mqtt/ssl_mutual_auth
+ *
+ */
 
 
 /*	WIFI FUNCTIONS BEGIN	*/

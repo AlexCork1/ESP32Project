@@ -10,6 +10,10 @@
 
 #include "SensorData.h"
 
+/*
+ *
+ */
+
 void Sensor_Init();
 void Sensor_UpdateData();
 void Sensor_GetData(SensorData *data);

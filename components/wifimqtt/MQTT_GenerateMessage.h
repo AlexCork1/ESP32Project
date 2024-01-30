@@ -8,6 +8,9 @@
 #include "MQTT_Message.h"
 
 
+/*
+ * This method takes in all parameters and generates MQTT publish message based on format
+ */
 int32_t GeneratePublishMessage(MQTT_MESSAGE *message, TriggerType source, const SensorData *sensorData);
 
 

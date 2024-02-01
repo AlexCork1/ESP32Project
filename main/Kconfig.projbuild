@@ -45,7 +45,7 @@ menu "My Configuration"
             URL address of firmware file that will be uploaded to the board
                        
     config MQTT_TRIGGER_UPDATE_TOPIC
-        string "MQTT trigger update topic publish"
+        string "MQTT trigger update topic"
         default "/assignment/update"
         help
             MQTT topic that must be send to ESP32 to update and restart firmware

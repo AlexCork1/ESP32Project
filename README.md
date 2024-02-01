@@ -1,4 +1,4 @@
-# Instructions for Using the Weather Sensor
+# Weather station
 
 Welcome to our ESP32 project! This modular firmware, designed for the ESP32 module, seamlessly integrates with an external button and utilizes FreeRTOS middleware for efficient task management. 
 The system employs three tasks for reading temperature and humidity sensor data: a periodic task, a button-click task, and an MQTT receive task. Each task independently publishes real-time temperature and 

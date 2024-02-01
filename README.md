@@ -1,41 +1,39 @@
-# Instructions for using weather sensor
-Welcome to the ESP32 project! This modular firmware, designed for the ESP32 module, integrates seamlessly with an external button and utilizes the FreeRTOS middleware for efficient 
-task management. The system features three distinct tasks for reading temperature and humidity sensor data: a periodic task, a button-click task, and an MQTT receive task. Each task
-autonomously publishes real-time temperature and humidity values to an MQTT broker in JSON format, secured with mutual authentication, ensuring data integrity and privacy. The project 
-also boasts Over-the-Air (OTA) firmware update support for hassle-free maintenance.<br />
-The code is structured in a modular fashion, promoting flexibility and ease of maintenance. However, there are areas for improvement, including the implementation of comprehensive 
-tests (both unit and integration) and the integration of Espressif's unified provisioning process. Contributions and feedback are welcome as we strive to enhance and refine this 
-ESP32 project together.<br />
+# Instructions for Using the Weather Sensor
 
-## Change WiFi credentials
-To change WiFi credentials, SSID and Password (if needed), open file sdkconfig, and find in the list option "My Configuration".
-There you can change WiFi SSID field and WiFi Password field. Rebuild project and run it to make a change.<br>
+Welcome to our ESP32 project! This modular firmware, designed for the ESP32 module, seamlessly integrates with an external button and utilizes FreeRTOS middleware for efficient task management. 
+The system employs three tasks for reading temperature and humidity sensor data: a periodic task, a button-click task, and an MQTT receive task. Each task independently publishes real-time temperature and 
+humidity values to an MQTT broker in JSON format, ensuring data integrity and privacy with mutual authentication. The project also supports hassle-free Over-the-Air (OTA) firmware updates.
 
-## Change MQTT brokerinformation
-To change MQTT broker information, open file sdkconfig, and find in the list option "My Configuration". 
-There you can change Broker URL, MQTT topic request and message that must be send to task, to get a reading from sensor.
-MQTT topic publish is a topic used by another task for publishing data to MQTT broker.
+## Project Structure and Contribution
 
-## Create certificate for secure connection to MQTT broker
-Generate client certificate for mqtts:
-- openssl genrsa -out client.key
-- openssl req -out client.csr -key client.key -new<br >
-- Go to website https://test.mosquitto.org/ssl/index.php and copy the content of file client.csr in there(save downloaded file in the same folder)<br />
+The code is structured in a modular fashion, emphasizing flexibility and ease of maintenance. Areas for improvement include the implementation of comprehensive tests (both unit and integration) and
+ the integration of Espressif's unified provisioning process. Contributions and feedback are welcomed as we collaborate to enhance and refine this ESP32 project.
 
-Get server certificate from page https://test.mosquitto.org/ssl/mosquitto.org.crt and save it to folder keys<br />
+## Configuration
 
-Copy files client.crt, client.key and mosquitto.org.crt to folder /main/cert<br />
+### Change WiFi Credentials
 
-## Button connection
-An extern button is used for button requests. It must be connected to ground and pin D25 (this can be changed in file ReadUserButtonTask.c where define must be updated. <br />
+Modify WiFi credentials (SSID and password) in `sdkconfig` under My Configuration -> "WiFi SSID" and/or "WiFi Password" fields. Rebuild the project and run to apply changes.
 
-## Firmware update
-This project supports Over-the-Air (OTA) firmware updates triggered by a MQTT message send to topic "/assignment/update" (data is not important) 
-(can be modified in sdkconfig->My Configuration->MQTT trigger update topic). Location of the new, update firmware,
-can also be customized in the sdkconfig->My Configuration->URL address with update file name added.<br >
+### Change MQTT Broker Information
 
-Currenlty on server there is similar, but different firmware to test this functionality:
-- Output of current firmware: Message: {"source":0,"data":{"temp": 18,"hum":38}}<br />
-- Output of updated firmware: Message: {"data source":0,"data":{"temp": 44,"hum":16}}
+Configure the MQTT broker in `sdkconfig` under My Configuration -> "Broker URL," "MQTT topic request," and/or "MQTT message request" (for receiving the latest reading). Modify "MQTT topic publish" 
+to set the topic used by a task to publish messages to the MQTT broker.
 
-It's important to note that only non-secure HTTP connection is supported for OTA updates.Please exercise caution when using this feature in environments where security is a concern. 
+### Create Certificate for Secure Connection to MQTT Broker
+
+Support secure connections to the MQTT broker by generating a client certificate for MQTTS. Follow the provided steps for certificate creation and placement in the `/main/cert` folder.
+
+## Button Connection
+
+Connect an external button to ground and pin D25 (modifiable in `ReadUserButtonTask.c`). This button is used for button handling in the task.
+
+## Firmware Update
+
+The project supports Over-the-Air (OTA) firmware updates triggered by an MQTT message sent to the topic "/assignment/update." Customize the update trigger topic in `sdkconfig` under 
+My Configuration -> MQTT trigger update topic. Specify the location of the new firmware in `sdkconfig` under My Configuration -> URL address with the update file name. Be aware that 
+only non-secure HTTP connections are supported for OTA updates. Exercise caution in security-sensitive environments.
+
+### Firmware Output Examples
+- Current firmware output: Message: {"source":0,"data":{"temp": 18,"hum":38}}
+- Updated firmware output: Message: {"data source":0,"data":{"temp": 44,"hum":16}}

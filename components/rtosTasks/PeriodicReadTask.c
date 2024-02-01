@@ -55,7 +55,7 @@ int CreatePeriodicTask(void)
 	response = xTaskCreatePinnedToCore(
 			Task_PeriodicRead, //task function
 			"Sensor_Periodic", //task name
-			2048, //stack size
+			4096, //stack size
 			NULL,//parameters
 			3,	//priority (higher is more important)
 			&sensorPeriodicTaskHandle, //task handle

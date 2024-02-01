@@ -21,3 +21,7 @@ Copy files client.crt, client.key and mosquitto.org.crt to folder /main/cert<br 
 
 ## Button connection
 An extern button is used for button requests. It must be connected to ground and pin D25 (this can be changed in file ReadUserButtonTask.c where define must be updated. <br />
+
+## Firmware update
+
+Warning: Example uses non-secure option of OTA and it is configured as such.

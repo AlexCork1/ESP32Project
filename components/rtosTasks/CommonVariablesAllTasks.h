@@ -16,6 +16,9 @@
 //used for signaling between MQTT handle request and Task_MQTTRead_Command
 extern SemaphoreHandle_t message_received_sem;
 
+//used for signaling between MQTT handle request and Task_MQTTRead_UpdateFirmware
+extern SemaphoreHandle_t message_ota_mqtt;
+
 //globally defined MQTT broker used by Task_MQTT_Publish
 extern esp_mqtt_client_handle_t clientMQTTBroker;
 

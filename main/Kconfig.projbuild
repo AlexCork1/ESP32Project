@@ -37,7 +37,19 @@ menu "My Configuration"
         default "/assignment/sensor/publish"
         help
             MQTT topic where ESP32 will publish it's data
-
+            
+     config FIRMWARE_UPGRADE_URL
+        string "URL address with update file name added"
+        default "https://univerzamb-my.sharepoint.com/:u:/g/personal/ales_cep_um_si/EX86wVj0Dr5LlzeB8gZfo6gBBPPjZbScW9q_QHlGEl3hXg?e=toRkee"
+        help
+            URL address of firmware file that will be uploaded to the board
+                       
+    config MQTT_TRIGGER_UPDATE_TOPIC
+        string "MQTT trigger update topic publish"
+        default "/assignment/update"
+        help
+            MQTT topic that must be send to ESP32 to update and restart firmware
+            
     choice ESP_WIFI_SAE_MODE
         prompt "WPA3 SAE mode selection"
         default ESP_WPA3_SAE_PWE_BOTH

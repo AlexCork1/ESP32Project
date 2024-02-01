@@ -43,7 +43,7 @@ int CreateReadSensorTask(void){
 	response = xTaskCreatePinnedToCore(
 			Task_GetTemperatureAndHumidity, //task function
 			"SensorUpdateData", //task name
-			2048, //stack size
+			4096, //stack size
 			NULL,//parameters
 			5,	//priority (higher is more important)
 			&sensorUpdateTaskHandle, //task handle

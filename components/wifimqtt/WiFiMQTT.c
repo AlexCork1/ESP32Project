@@ -191,6 +191,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
     case MQTT_EVENT_CONNECTED:
         ESP_LOGI(TAG_MQTT, "MQTT_EVENT_CONNECTED");
         msg_id = esp_mqtt_client_subscribe(client, CONFIG_MQTT_READ_TOPIC, 0);
+        msg_id = esp_mqtt_client_subscribe(client, CONFIG_MQTT_TRIGGER_UPDATE_TOPIC, 0);
         ESP_LOGI(TAG_MQTT, "sent subscribe successful, msg_id=%d", msg_id);
         break;
     case MQTT_EVENT_DISCONNECTED:
@@ -211,9 +212,15 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
         break;
     case MQTT_EVENT_DATA:
         ESP_LOGI(TAG_MQTT, "MQTT_EVENT_DATA");
+        ESP_LOGI(TAG_MQTT, "MQTT_EVENT_PUBLISHED, topic=%s, message=%s", event->topic, event->data);
         if (strncmp(event->topic, CONFIG_MQTT_READ_TOPIC, event->topic_len) == 0 &&
-        	strncmp(event->data, CONFIG_MQTT_READ_MSG, event->data_len) == 0) {
+        	strncmp(event->data, CONFIG_MQTT_READ_MSG, event->data_len) == 0)
+        {
         	xSemaphoreGive(message_received_sem);
+        }
+        else if(strncmp(event->topic, CONFIG_MQTT_TRIGGER_UPDATE_TOPIC, event->topic_len) == 0)
+        {
+        	xSemaphoreGive(message_ota_mqtt);
         }
         break;
     case MQTT_EVENT_ERROR:

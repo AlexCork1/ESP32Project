@@ -22,9 +22,10 @@ void InitFreeRTOSStructs(void)
 	jsonQueue = xQueueCreate(QUEUE_SIZE, sizeof(MQTT_MESSAGE));
 
 	/*
-	 * creating binary semaphore used for signaling
+	 * creating binary semaphores used for signaling
 	 */
 	message_received_sem = xSemaphoreCreateBinary();
+	message_ota_mqtt = xSemaphoreCreateBinary();
 
 	/*
 	 * create all tasks (methods are implemented in tasks files)

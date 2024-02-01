@@ -60,7 +60,7 @@ int CreateMQTTReadTask(void)
 	response = xTaskCreatePinnedToCore(
 				Task_MQTTRead_Command, //task function
 				"Sensor_MQTT read", //task name
-				2048, //stack size
+				4096, //stack size
 				NULL,//parameters
 				3,	//priority (higher is more important)
 				&sensorMQTTTaskHandle, //task handle

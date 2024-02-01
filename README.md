@@ -1,4 +1,11 @@
 # Instructions for using weather sensor
+Welcome to the ESP32 project! This modular firmware, designed for the ESP32 module, integrates seamlessly with an external button and utilizes the FreeRTOS middleware for efficient 
+task management. The system features three distinct tasks for reading temperature and humidity sensor data: a periodic task, a button-click task, and an MQTT receive task. Each task
+autonomously publishes real-time temperature and humidity values to an MQTT broker in JSON format, secured with mutual authentication, ensuring data integrity and privacy. The project 
+also boasts Over-the-Air (OTA) firmware update support for hassle-free maintenance.<br />
+The code is structured in a modular fashion, promoting flexibility and ease of maintenance. However, there are areas for improvement, including the implementation of comprehensive 
+tests (both unit and integration) and the integration of Espressif's unified provisioning process. Contributions and feedback are welcome as we strive to enhance and refine this 
+ESP32 project together.<br />
 
 ## Change WiFi credentials
 To change WiFi credentials, SSID and Password (if needed), open file sdkconfig, and find in the list option "My Configuration".
